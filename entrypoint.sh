@@ -52,6 +52,8 @@ git config --global user.name "GitHub Action"
 set -o xtrace
 
 # Install R dependencies
+echo "options(repos = 'https://demo.rstudiopm.com/all/__linux__/xenial/latest')" > ~/.Rprofile
+
 Rscript -e 'install.packages(c("remotes", "roxygen2"))'
 
 Rscript -e 'remotes::install_deps(dependencies = TRUE)'
