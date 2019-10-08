@@ -10,7 +10,7 @@ LABEL "com.github.actions.description"="Automatically re-documents PRs on '/docu
 LABEL "com.github.actions.icon"="git-pull-request"
 LABEL "com.github.actions.color"="purple"
 
-RUN apt install jq curl git
+RUN apt-get update && apt-get install -y jq curl git
 
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
