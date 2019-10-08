@@ -59,7 +59,7 @@ Rscript -e 'install.packages(c("remotes", "roxygen2"))'
 Rscript -e 'remotes::install_deps(dependencies = TRUE)'
 
 # Checkout the branch
-git checkout -b $HEAD_BRANCH origin/$HEAD_BRANCH
+git checkout -b $HEAD_BRANCH pull/$PR_NUMBER/head
 
 # Document
 Rscript -e 'roxygen2::roxygenise(".")'
@@ -68,4 +68,4 @@ git add man/*
 git commit -m 'Document'
 
 # push back
-git push
+git push $HEAD_REPO:$HEAD_BRANCH
