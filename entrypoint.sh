@@ -64,7 +64,8 @@ git checkout -b $HEAD_BRANCH origin/$HEAD_BRANCH
 # Document
 Rscript -e 'roxygen2::roxygenise(".")'
 
-git commit man/* -m 'Document'
+git add man/*
+git commit -m 'Document'
 
 # push back
 git push
