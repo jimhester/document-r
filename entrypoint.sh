@@ -39,10 +39,7 @@ pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
 BASE_REPO=$(echo "$pr_resp" | jq -r .base.repo.full_name)
 HEAD_REPO=$(echo "$pr_resp" | jq -r .head.repo.full_name)
 HEAD_BRANCH=$(echo "$pr_resp" | jq -r .head.ref)
-
-git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
-git config --global user.email "action@github.com"
-git config --global user.name "GitHub Action"
+HEAD_CLONE_URL=$(echo "$pr_resp" | jq -r .head.ref)
 
 set -o xtrace
 
@@ -53,8 +50,14 @@ Rscript -e 'install.packages(c("remotes", "roxygen2"))'
 
 Rscript -e 'remotes::install_deps(dependencies = TRUE)'
 
+# Fetch from the URL, check changes
+git remote add pr https://x-access-token:$GITHUB_TOKEN@$HEAD_CLONE_URL
+git config --global user.email "action@github.com"
+git config --global user.name "GitHub Action"
+
 # Checkout the branch
-git checkout -b $HEAD_BRANCH pull/$PR_NUMBER/head
+get fetch pr $HEAD_BRANCH
+git checkout -b $HEAD_BRANCH pr/$HEAD_BRANCH
 
 # Document
 Rscript -e 'roxygen2::roxygenise(".")'
@@ -63,4 +66,4 @@ git add man/*
 git commit -m 'Document'
 
 # push back
-git push $HEAD_REPO:$HEAD_BRANCH
+git push HEAD:pr/$HEAD_BRANCH
