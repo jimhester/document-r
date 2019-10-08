@@ -56,7 +56,7 @@ git config --global user.email "action@github.com"
 git config --global user.name "GitHub Action"
 
 # Checkout the branch
-get fetch pr $HEAD_BRANCH
+git fetch pr $HEAD_BRANCH
 git checkout -b $HEAD_BRANCH pr/$HEAD_BRANCH
 
 # Document
