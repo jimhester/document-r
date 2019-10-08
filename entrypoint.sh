@@ -69,4 +69,4 @@ git add man/*
 git commit -m 'Document'
 
 # push back
-git push HEAD:pr/$HEAD_BRANCH
+git push pr HEAD:$HEAD_BRANCH
