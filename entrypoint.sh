@@ -39,7 +39,7 @@ pr_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
 BASE_REPO=$(echo "$pr_resp" | jq -r .base.repo.full_name)
 HEAD_REPO=$(echo "$pr_resp" | jq -r .head.repo.full_name)
 HEAD_BRANCH=$(echo "$pr_resp" | jq -r .head.ref)
-HEAD_CLONE_URL=$(echo "$pr_resp" | jq -r .head.ref)
+HEAD_CLONE_URL=$(echo "$pr_resp" | jq -r .head.repo.clone_url)
 
 set -o xtrace
 
