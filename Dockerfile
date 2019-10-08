@@ -10,5 +10,7 @@ LABEL "com.github.actions.description"="Automatically re-documents PRs on '/docu
 LABEL "com.github.actions.icon"="git-pull-request"
 LABEL "com.github.actions.color"="purple"
 
+RUN apk --no-cache add jq curl git
+
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
