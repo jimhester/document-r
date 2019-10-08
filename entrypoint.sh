@@ -40,11 +40,6 @@ BASE_REPO=$(echo "$pr_resp" | jq -r .base.repo.full_name)
 HEAD_REPO=$(echo "$pr_resp" | jq -r .head.repo.full_name)
 HEAD_BRANCH=$(echo "$pr_resp" | jq -r .head.ref)
 
-if [[ "$BASE_REPO" != "$HEAD_REPO" ]]; then
-	echo "PRs from forks are not supported at the moment."
-	exit 1
-fi
-
 git remote set-url origin https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git
 git config --global user.email "action@github.com"
 git config --global user.name "GitHub Action"
