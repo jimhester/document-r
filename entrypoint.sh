@@ -50,8 +50,11 @@ Rscript -e 'install.packages(c("remotes", "roxygen2"))'
 
 Rscript -e 'remotes::install_deps(dependencies = TRUE)'
 
+# Add token to URL
+HEAD_CLONE_URL2=$(echo "$HEAD_CLONE_URL" | sed "s{https://{https://x-access-token:$GITHUB_TOKEN@{")
+
 # Fetch from the URL, check changes
-git remote add pr https://x-access-token:$GITHUB_TOKEN@$HEAD_CLONE_URL
+git remote add pr $HEAD_CLONE_URL2
 git config --global user.email "action@github.com"
 git config --global user.name "GitHub Action"
 
